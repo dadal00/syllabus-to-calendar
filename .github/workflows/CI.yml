@@ -1,9 +1,9 @@
-name: Lint
+name: CI
 
 on:
   push:
     branches:
-      - '**'
+      - "**"
 
 jobs:
   build:
@@ -15,16 +15,9 @@ jobs:
         with:
           node-version: 20
 
-      - name: Lint Backend
-        run: |
-          cd backend
-          npm ci
-          npm run check
-          npm run lint
-
       - name: Lint Frontend
         run: |
-          cd frontend
-          npm ci
-          npm run check
+          npm instal
           npm run lint
+          npm run format-check
+          npm run build
