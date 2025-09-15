@@ -1,8 +1,9 @@
 'use client'
 
-import FileUpload from 'components/FileUpload'
-import LiveCalendar from 'components/LiveCalendar'
+import FileUploadButton from 'components/FileUploadButton'
+import EventCalendar from 'components/EventCalendar'
 import { useState } from 'react'
+import { CalendarEvent } from 'lib/models'
 
 export default function Home() {
 	const [events, setEvents] = useState<CalendarEvent[]>([])
@@ -11,8 +12,8 @@ export default function Home() {
 		<div className="flex h-screen">
 			<div className="w-[15%] bg-gray-100 p-4"></div>
 			<div className="flex-1 bg-white p-4">
-				<LiveCalendar events={events} />
-				<FileUpload setEvents={setEvents} />
+				<EventCalendar events={events} />
+				<FileUploadButton setEvents={setEvents} />
 			</div>
 		</div>
 	)

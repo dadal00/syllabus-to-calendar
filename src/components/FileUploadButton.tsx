@@ -1,6 +1,7 @@
+import { SetEventsProp } from 'lib/models'
 import { useState } from 'react'
 
-export default function FileUpload({ setEvents }: SetStateProp) {
+export default function FileUploadButton({ setEvents }: SetEventsProp) {
 	const [file, setFile] = useState<File | null>(null)
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,14 +18,19 @@ export default function FileUpload({ setEvents }: SetStateProp) {
 			formData.append('file', file)
 
 			try {
-				const result = await fetch('/convert-syllabus', {
+				const response = await fetch('/convert-syllabus', {
 					method: 'POST',
 					body: formData
 				})
 
-				const data = await result.json()
+				const data = await response.json()
 
-				// setEvents(data)
+				if (!response.ok) {
+					console.log(data)
+					return
+				}
+
+				setEvents(data)
 				console.log(data)
 			} catch (error) {
 				console.error(error)

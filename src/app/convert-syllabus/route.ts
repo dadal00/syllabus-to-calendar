@@ -1,50 +1,43 @@
-// import OpenAI from 'openai'
+import { maxFileSize } from 'lib/models'
+import { grabFile, validateFileType } from 'lib/fileProcessing'
+import {
+	fileInvalidType,
+	fileTooLargeResponse,
+	jsonInternalErrorResponse,
+	jsonResponse,
+	noFileResponse
+} from 'lib/responses'
+import { fetchEvents } from 'lib/openAI'
+import { NextRequest, NextResponse } from 'next/server'
 
-// const client = new OpenAI({
-// 	apiKey: process.env['OPENAI_API_KEY']
-// })
+export async function POST(request: NextRequest): Promise<NextResponse> {
+	/* Grab file data */
+	const file = await grabFile(request)
 
-export async function POST(req: Request) {
-	const formData = await req.formData()
-	const file = formData.get('file') as File
+	/* Check if a file was sent */
+	if (!file) return noFileResponse()
 
-	if (!file) {
-		return new Response(JSON.stringify({ error: 'No file uploaded' }), {
-			status: 400,
-			headers: { 'Content-Type': 'application/json' }
-		})
+	/* Check if file too large */
+	if (file.size > maxFileSize) return fileTooLargeResponse()
+
+	/* Check if file is a valid type, save the file bytes to use later */
+	const fileBytes = await validateFileType(file)
+	if (!fileBytes) return fileInvalidType()
+
+	try {
+		/* 
+			We save the file bytes to create the Base64 here. 
+
+			We catch: 
+			- openAI API response errors (if communication failed)
+			- zod safe parse errors (if we did NOT get an array of events)  
+		*/
+		const result = await fetchEvents(file.name, fileBytes)
+
+		return jsonResponse(result)
+	} catch (err: any) {
+		console.error('Internal error: ', err)
+
+		return jsonInternalErrorResponse(err?.message || 'Unknown error', err?.code || 'unknown_error')
 	}
-
-	const arrayBuffer = await file.arrayBuffer()
-	const base64String = Buffer.from(arrayBuffer).toString('base64')
-
-	// const response = await client.responses.create({
-	// 	model: 'gpt-5',
-	// 	input: [
-	// 		{
-	// 			role: 'user',
-	// 			content: [
-	// 				{
-	// 					type: 'input_file',
-	// 					filename: file.name,
-	// 					file_data: `data:application/pdf;base64,${base64String}`
-	// 				},
-	// 				{
-	// 					type: 'input_text',
-	// 					text: 'Extract the weekly syllabus events into a JSON. The JSON structure should be an array of objects with an example format of [{ "title": "Example", "start": "05/12/25", "end": "06/24/25" }]'
-	// 				}
-	// 			]
-	// 		}
-	// 	]
-	// })
-
-	// return new Response(JSON.stringify({ text: response.output_text }), {
-	// 	status: 200,
-	// 	headers: { 'Content-Type': 'application/json' }
-	// })
-
-	return new Response(JSON.stringify({ message: 'File received', name: file.name }), {
-		status: 200,
-		headers: { 'Content-Type': 'application/json' }
-	})
 }
