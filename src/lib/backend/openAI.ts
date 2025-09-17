@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { CalendarEvents, EventsArray, EventsJson } from './models'
+import { CalendarEvents, EventsArray, EventsJson } from '../models'
 import { zodTextFormat } from 'openai/helpers/zod.js'
 import { grabB64 } from './fileProcessing'
 
@@ -14,7 +14,11 @@ const SystemPrompt =
 	title should be concise and include only actionable \
 	items. For example instead of 'Week 10 — Read Handbook \
 	Chapters 19-24', it should be 'Read Handbook Chapters \
-	19-24'. If there are no obvious dates or timelines treat \
+	19-24'. If there are no obvious dates or timelines, \
+	find as much context as possible such as the year or \
+	season elsewhere in the document first. For example, \
+	'Fall 2024' would start around the first Monday of \
+	September. If there are truly no other context clues, treat \
 	the current date as the start and mark the date for each \
 	monday afterwards."
 

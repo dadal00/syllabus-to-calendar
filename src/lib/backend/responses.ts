@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { maxFileSize } from './models'
+import { maxFileSize } from '../models'
 
 /* Responses */
 export function noFileResponse(): NextResponse {

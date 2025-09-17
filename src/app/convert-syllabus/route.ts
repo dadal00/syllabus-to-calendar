@@ -1,13 +1,13 @@
 import { maxFileSize } from 'lib/models'
-import { grabFile, validateFileType } from 'lib/fileProcessing'
+import { grabFile, validateFileType } from 'lib/backend/fileProcessing'
 import {
 	fileInvalidType,
 	fileTooLargeResponse,
 	jsonInternalErrorResponse,
 	jsonResponse,
 	noFileResponse
-} from 'lib/responses'
-import { fetchEvents } from 'lib/openAI'
+} from 'lib/backend/responses'
+import { fetchEvents } from 'lib/backend/openAI'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

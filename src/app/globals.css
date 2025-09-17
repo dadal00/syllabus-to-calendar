@@ -3,6 +3,10 @@
 :root {
 	--background: #ffffff;
 	--foreground: #171717;
+	--bright-gray: #1c1a19;
+}
+
+@theme {
 }
 
 @theme inline {
@@ -10,6 +14,7 @@
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
+	--color-bright-gray: var(--bright-gray);
 }
 
 @media (prefers-color-scheme: dark) {

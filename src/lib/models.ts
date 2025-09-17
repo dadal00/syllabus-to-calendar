@@ -35,6 +35,12 @@ export interface EventCalendarProps {
 	events: CalendarEvent[]
 }
 
-export interface SetEventsProp {
+export interface CalendarHeaderProps extends EventCalendarProps {
 	setEvents: React.Dispatch<React.SetStateAction<CalendarEvent[]>>
+}
+
+export interface UploadButtonProps extends CalendarHeaderProps {
+	setUserMessage: React.Dispatch<React.SetStateAction<string>>
+	loadingUpload: boolean
+	setLoadingUpload: React.Dispatch<React.SetStateAction<boolean>>
 }
