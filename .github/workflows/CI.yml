@@ -15,9 +15,18 @@ jobs:
         with:
           node-version: 20
 
-      - name: Lint Frontend
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint
         run: |
-          npm install
           npm run lint
+
+      - name: Format Check
+        run: |
           npm run format-check
+
+      - name: Build
+        run: |
+          export OPENAI_API_KEY=dummy
           npm run build
