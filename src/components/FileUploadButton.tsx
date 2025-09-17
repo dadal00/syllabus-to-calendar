@@ -1,4 +1,4 @@
-import { grabJsonFromResponse, sendPost } from 'lib/frontend/requests'
+import { grabEventsJsonFromResponse, sendPost } from 'lib/frontend/requests'
 import { EventsArray, UploadButtonProps } from 'lib/models'
 import * as z from 'zod/v4/core'
 import Spinner from './Spinner'
@@ -19,11 +19,8 @@ export default function FileUploadButton({
 		/* If there are no files, return */
 		if (!event.target.files) return
 
-		/* If there are no files, return */
 		const file = event.target.files[0]
 		if (!file) return
-
-		console.log('Uploading file...')
 
 		/* Syllabus payload */
 		const formData = new FormData()
@@ -38,7 +35,7 @@ export default function FileUploadButton({
 			*/
 			setLoadingUpload(true)
 
-			const data = await grabJsonFromResponse(await sendPost('/convert-syllabus', formData))
+			const data = await grabEventsJsonFromResponse(await sendPost('/convert-syllabus', formData))
 
 			/* Parse the type correctly otherwise throw an error */
 			const result = EventsArray.safeParse(data)
@@ -50,15 +47,13 @@ export default function FileUploadButton({
 				id: Math.floor(Math.random() * 1000000)
 			}))
 
+			console.log(parsedResult)
+
 			/* Extend the current events to not override */
 			setEvents([...events, ...parsedResult])
 			setLoadingUpload(false)
 			setUserMessage('Success!')
-
-			console.log(data)
-		} catch (error) {
-			console.error(error)
-
+		} catch (error: unknown) {
 			setLoadingUpload(false)
 			/* If error, show message to the user */
 			setUserMessage(error instanceof Error ? error.message : String(error))

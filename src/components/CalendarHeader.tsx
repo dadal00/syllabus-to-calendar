@@ -3,7 +3,7 @@ import { useState } from 'react'
 import FileUploadButton from './FileUploadButton'
 
 export default function CalendarHeader({ events, setEvents }: CalendarHeaderProps) {
-	const [userMessage, setUserMessage] = useState('')
+	const [userMessage, setUserMessage] = useState<string>('')
 
 	const [loadingUpload, setLoadingUpload] = useState<boolean>(false)
 
@@ -20,7 +20,9 @@ export default function CalendarHeader({ events, setEvents }: CalendarHeaderProp
 			<div className="ml-auto flex items-center">
 				{/* Relevant user error/success message */}
 				{!loadingUpload && (
-					<p className={`text-${userMessage === 'Success!' ? 'green' : 'red'}-400 text-sm mr-4`}>
+					<p
+						className={`${userMessage === 'Success!' ? 'text-green-400' : 'text-red-400'} text-sm mr-4`}
+					>
 						{userMessage}
 					</p>
 				)}

@@ -35,9 +35,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 		const result = await fetchEvents(file.name, fileBytes)
 
 		return jsonResponse(result)
-	} catch (err: any) {
-		console.error('Internal error: ', err)
+	} catch (err: unknown) {
+		if (err instanceof Error) return jsonInternalErrorResponse(err.message, 'unknown_error')
 
-		return jsonInternalErrorResponse(err?.message || 'Unknown error', err?.code || 'unknown_error')
+		return jsonInternalErrorResponse(String(err), 'unknown_error')
 	}
 }

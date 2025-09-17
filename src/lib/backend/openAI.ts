@@ -26,7 +26,10 @@ const client = new OpenAI({
 	apiKey: process.env['OPENAI_API_KEY']
 })
 
-export async function openAIExtract(fileName: string, fileB64: string): Promise<any> {
+export async function openAIExtract(
+	fileName: string,
+	fileB64: string
+): Promise<OpenAI.Responses.Response> {
 	return client.responses.create({
 		model: 'gpt-5-mini',
 		input: [
@@ -58,7 +61,7 @@ export async function openAIExtract(fileName: string, fileB64: string): Promise<
 	})
 }
 
-export async function grabExtractedEvents(fileName: string, fileBytes: Buffer): Promise<any> {
+export async function grabExtractedEvents(fileName: string, fileBytes: Buffer): Promise<string> {
 	/* 
 		1. Pass file name + bytes to openAI
 		2. Grab the output_text (or the result)

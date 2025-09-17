@@ -1,5 +1,7 @@
+import { CalendarEvents } from 'lib/models'
+
 /* Sends post request with given path and body */
-export async function sendPost(path: string, data: any): Promise<Response> {
+export async function sendPost(path: string, data: BodyInit): Promise<Response> {
 	return await fetch(path, {
 		method: 'POST',
 		body: data
@@ -7,7 +9,7 @@ export async function sendPost(path: string, data: any): Promise<Response> {
 }
 
 /* Throws custom errors */
-export async function grabJsonFromResponse(response: Response): Promise<any> {
+export async function grabEventsJsonFromResponse(response: Response): Promise<CalendarEvents> {
 	const data = await response.json()
 
 	if (!response.ok) throw new Error(data.error)
