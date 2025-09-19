@@ -32,8 +32,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 			- openAI API response errors (if communication failed)
 			- zod safe parse errors (if we did NOT get an array of events)  
 		*/
+		/* Parse the events from the file */
 		const result = await fetchEvents(file.name, fileBytes)
 
+		/* Jsonify the events and send them back */
 		return jsonResponse(result)
 	} catch (err: unknown) {
 		if (err instanceof Error) return jsonInternalErrorResponse(err.message, 'unknown_error')
