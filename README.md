@@ -1,10 +1,15 @@
 # Syllabus To Calendar
 
+[![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?logo=openai&logoColor=white)](https://openai.com/)
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/)
 [![Vercel](https://img.shields.io/badge/Vercel-%23000000.svg?logo=vercel&logoColor=white)](https://vercel.com/)
 [![Jest](https://img.shields.io/badge/Jest-C21325?logo=jest&logoColor=fff)](https://jestjs.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+
+__Why did we make this?__
+
+As a student myself, I wanted to develop a tool that can convert and overlay multiple course events onto a single calendar which I can both see and interact with. Thus, I made this syllabus parser which can read PDFs to populate a live calendar.
 
 Home Website: [https://syllabus-to-calendar-brown.vercel.app/](https://syllabus-to-calendar-brown.vercel.app/)
 
@@ -20,6 +25,9 @@ Home Website: [https://syllabus-to-calendar-brown.vercel.app/](https://syllabus-
 - [Local Reproduction](#local-reproduction)
 
 ## Built With
+[![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?logo=openai&logoColor=white)](https://openai.com/)
+
+Used OpenAI's API to parse PDFs into structured JSONs.
 
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/)
