@@ -26,6 +26,10 @@ jobs:
         run: |
           npm run format-check
 
+      - name: Tests
+        run: |
+          npm run test
+
       - name: Build
         run: |
           export OPENAI_API_KEY=dummy

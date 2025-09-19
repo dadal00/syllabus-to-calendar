@@ -1,4 +1,4 @@
-import { grabEventsJsonFromResponse, sendPost } from 'lib/frontend/requests'
+import { parseEventResponse, sendPost } from 'lib/frontend/requests'
 import { EventsArray, UploadButtonProps } from 'lib/models'
 import * as z from 'zod/v4/core'
 import Spinner from './Spinner'
@@ -35,7 +35,7 @@ export default function FileUploadButton({
 			*/
 			setLoadingUpload(true)
 
-			const data = await grabEventsJsonFromResponse(await sendPost('/convert-syllabus', formData))
+			const data = await parseEventResponse(await sendPost('/convert-syllabus', formData))
 
 			/* Parse the type correctly otherwise throw an error */
 			const result = EventsArray.safeParse(data)
