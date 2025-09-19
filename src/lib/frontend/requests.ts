@@ -12,7 +12,11 @@ export async function sendPost(path: string, data: BodyInit): Promise<Response> 
 export async function grabEventsJsonFromResponse(response: Response): Promise<CalendarEvents> {
 	const data = await response.json()
 
-	if (!response.ok) throw new Error(data.error)
+	if (!response.ok) {
+		const msg = data.error || data.message || 'Unknown error'
+
+		throw new Error(msg.length > 40 ? msg.slice(0, 40) + '…' : msg)
+	}
 
 	return data
 }
